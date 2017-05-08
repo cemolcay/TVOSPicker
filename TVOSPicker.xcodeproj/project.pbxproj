@@ -11,6 +11,7 @@
 		B27E3F001EC0AB6A003E8189 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27E3EFF1EC0AB6A003E8189 /* ViewController.swift */; };
 		B27E3F031EC0AB6A003E8189 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B27E3F011EC0AB6A003E8189 /* Main.storyboard */; };
 		B27E3F051EC0AB6A003E8189 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B27E3F041EC0AB6A003E8189 /* Assets.xcassets */; };
+		B27E3F0D1EC0AB83003E8189 /* TVOSPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27E3F0C1EC0AB83003E8189 /* TVOSPickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		B27E3F021EC0AB6A003E8189 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B27E3F041EC0AB6A003E8189 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B27E3F061EC0AB6A003E8189 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B27E3F0C1EC0AB83003E8189 /* TVOSPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVOSPickerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 			children = (
 				B27E3EFD1EC0AB6A003E8189 /* AppDelegate.swift */,
 				B27E3EFF1EC0AB6A003E8189 /* ViewController.swift */,
+				B27E3F0C1EC0AB83003E8189 /* TVOSPickerViewController.swift */,
 				B27E3F011EC0AB6A003E8189 /* Main.storyboard */,
 				B27E3F041EC0AB6A003E8189 /* Assets.xcassets */,
 				B27E3F061EC0AB6A003E8189 /* Info.plist */,
@@ -133,6 +136,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B27E3F0D1EC0AB83003E8189 /* TVOSPickerViewController.swift in Sources */,
 				B27E3F001EC0AB6A003E8189 /* ViewController.swift in Sources */,
 				B27E3EFE1EC0AB6A003E8189 /* AppDelegate.swift in Sources */,
 			);
@@ -256,6 +260,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cemolcay.TVOSPicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
@@ -270,6 +275,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cemolcay.TVOSPicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};
