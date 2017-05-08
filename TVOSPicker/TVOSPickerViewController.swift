@@ -96,9 +96,9 @@ public class TVOSPickerViewController: UIViewController, UICollectionViewDelegat
   public var cancelButton = UIButton(type: .system)
 
   public var dataSource: [String] = []
+  public var defaultSelectedItemIndex = 0
   private var contentStack = UIStackView()
   private let cancelFocusGuide = UIFocusGuide()
-  private var defaultSelectedItemIndex = 0
 
   public weak var delegate: TVOSPickerViewControllerDelegate?
 
@@ -164,8 +164,8 @@ public class TVOSPickerViewController: UIViewController, UICollectionViewDelegat
 
     NSLayoutConstraint.activate([
       collectionView.heightAnchor.constraint(equalToConstant: 125),
-      collectionView.leftAnchor.constraint(equalTo: contentStack.leftAnchor, constant: 20),
-      collectionView.rightAnchor.constraint(equalTo: contentStack.rightAnchor, constant: 20)
+      collectionView.leftAnchor.constraint(equalTo: contentStack.leftAnchor, constant: 0),
+      collectionView.rightAnchor.constraint(equalTo: contentStack.rightAnchor, constant: 0)
     ])
 
     let flow = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
@@ -205,10 +205,17 @@ public class TVOSPickerViewController: UIViewController, UICollectionViewDelegat
 
   public override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
     super.didUpdateFocus(in: context, with: coordinator)
-    guard let cell =  context.nextFocusedView as? TVOSPickerCell,
+    guard let cell = context.nextFocusedView as? TVOSPickerCell,
       let indexPath = collectionView.indexPath(for: cell)
       else { return }
-    collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+
+    // Center cells when scrolling
+    let contentWidth = Array(0..<collectionView.numberOfItems(inSection: 0))
+      .map({ self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: IndexPath(item: $0, section: 0)).width })
+      .reduce(0, +)
+    if contentWidth > collectionView.frame.size.width {
+      collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    }
 
     // Setup focus guide
     if context.nextFocusedView == cancelButton {
@@ -258,6 +265,22 @@ public class TVOSPickerViewController: UIViewController, UICollectionViewDelegat
     .width
     return CGSize(width: itemWidth + 80, height: collectionView.frame.size.height - 40)
   }
+
+  public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    guard let flow = collectionViewLayout as? UICollectionViewFlowLayout
+      else { return .zero }
+
+    let contentWidth = Array(0..<collectionView.numberOfItems(inSection: 0))
+      .map({ self.collectionView(collectionView, layout: flow, sizeForItemAt: IndexPath(item: $0, section: 0)).width })
+      .reduce(0, +)
+
+    if contentWidth > collectionView.frame.size.width {
+      return .zero
+    }
+
+    let padding = (collectionView.frame.size.width - contentWidth) / 2
+    return UIEdgeInsets(top: 0, left: padding, bottom: 0, right: 0)
+  }
 }
 
 public typealias TVOSPickerHandler = (_ item: String, _ at: Int) -> Void
@@ -290,6 +313,7 @@ extension UIViewController: TVOSPickerViewControllerDelegate {
     picker.titleLabel.text = title
     picker.subtitleLabel.text = subtitle
     picker.dataSource = dataSource
+    picker.defaultSelectedItemIndex = initialSelection
     picker.delegate = self
     pickerHandler = onSelectItem
     if let navigationController = navigationController {
