@@ -102,6 +102,12 @@ public class TVOSPickerViewController: UIViewController, UICollectionViewDelegat
 
   public weak var delegate: TVOSPickerViewControllerDelegate?
 
+  private lazy var contentWidth: CGFloat = {
+    return Array(0..<self.collectionView.numberOfItems(inSection: 0))
+      .map({ self.collectionView(self.collectionView, layout: self.collectionView.collectionViewLayout, sizeForItemAt: IndexPath(item: $0, section: 0)).width })
+      .reduce(0, +)
+  }()
+
   // MARK: Lifecycle
 
   public override func viewDidLoad() {
@@ -210,9 +216,6 @@ public class TVOSPickerViewController: UIViewController, UICollectionViewDelegat
       else { return }
 
     // Center cells when scrolling
-    let contentWidth = Array(0..<collectionView.numberOfItems(inSection: 0))
-      .map({ self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: IndexPath(item: $0, section: 0)).width })
-      .reduce(0, +)
     if contentWidth > collectionView.frame.size.width {
       collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
@@ -267,13 +270,6 @@ public class TVOSPickerViewController: UIViewController, UICollectionViewDelegat
   }
 
   public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    guard let flow = collectionViewLayout as? UICollectionViewFlowLayout
-      else { return .zero }
-
-    let contentWidth = Array(0..<collectionView.numberOfItems(inSection: 0))
-      .map({ self.collectionView(collectionView, layout: flow, sizeForItemAt: IndexPath(item: $0, section: 0)).width })
-      .reduce(0, +)
-
     if contentWidth > collectionView.frame.size.width {
       return .zero
     }
