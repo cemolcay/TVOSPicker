@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ObjectiveC
 
 public class TVOSPickerCell: UICollectionViewCell {
   public static let cellReuseIdentifier = "PickerCell"
@@ -115,13 +114,13 @@ public class TVOSPickerViewController: UIViewController, UICollectionViewDelegat
 
     let topEmptyView = UIView()
     topEmptyView.translatesAutoresizingMaskIntoConstraints = false
-    topEmptyView.setContentHuggingPriority(200, for: .horizontal)
-    topEmptyView.setContentHuggingPriority(200, for: .vertical)
+    topEmptyView.setContentHuggingPriority(UILayoutPriority(rawValue: 200), for: .horizontal)
+    topEmptyView.setContentHuggingPriority(UILayoutPriority(rawValue: 200), for: .vertical)
 
     let bottomEmptyView = UIView()
     bottomEmptyView.translatesAutoresizingMaskIntoConstraints = false
-    bottomEmptyView.setContentHuggingPriority(200, for: .horizontal)
-    bottomEmptyView.setContentHuggingPriority(200, for: .vertical)
+    bottomEmptyView.setContentHuggingPriority(UILayoutPriority(rawValue: 200), for: .horizontal)
+    bottomEmptyView.setContentHuggingPriority(UILayoutPriority(rawValue: 200), for: .vertical)
 
     // Stack view
     view.addSubview(contentStack)
@@ -149,15 +148,15 @@ public class TVOSPickerViewController: UIViewController, UICollectionViewDelegat
     titleLabel.textAlignment = .center
     titleLabel.font = UIFont.preferredFont(forTextStyle: .title1)
     titleLabel.textColor = .black
-    titleLabel.setContentHuggingPriority(240, for: .horizontal)
-    titleLabel.setContentHuggingPriority(240, for: .vertical)
+    titleLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 240), for: .horizontal)
+    titleLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 240), for: .vertical)
 
     // Subtitle label
     subtitleLabel.textAlignment = .center
     subtitleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
     subtitleLabel.textColor = .black
-    subtitleLabel.setContentHuggingPriority(230, for: .horizontal)
-    subtitleLabel.setContentHuggingPriority(230, for: .vertical)
+    subtitleLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 230), for: .horizontal)
+    subtitleLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 230), for: .vertical)
 
     // Collection view
     collectionView.clipsToBounds = false
@@ -196,7 +195,7 @@ public class TVOSPickerViewController: UIViewController, UICollectionViewDelegat
     collectionView.reloadData()
   }
 
-  func cancelButtonPressed(sender: UIButton) {
+  @objc func cancelButtonPressed(sender: UIButton) {
     delegate?.pickerViewControllerDidPressCancelButton(self)
   }
 
@@ -260,7 +259,7 @@ public class TVOSPickerViewController: UIViewController, UICollectionViewDelegat
     let item = dataSource[indexPath.item]
     let itemWidth = NSAttributedString(
       string: item,
-      attributes: [NSFontAttributeName: UIFont.preferredFont(forTextStyle: .body)]
+      attributes: [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .body)]
     ).boundingRect(
         with: CGSize(width: .max, height: .max),
         options: .usesDeviceMetrics,
