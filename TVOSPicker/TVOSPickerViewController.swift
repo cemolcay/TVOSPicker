@@ -259,7 +259,7 @@ public class TVOSPickerViewController: UIViewController, UICollectionViewDelegat
     let item = dataSource[indexPath.item]
     let itemWidth = NSAttributedString(
       string: item,
-      attributes: [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .body)]
+      attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .body)]
     ).boundingRect(
         with: CGSize(width: .max, height: .max),
         options: .usesDeviceMetrics,
